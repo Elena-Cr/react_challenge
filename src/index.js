@@ -1,11 +1,51 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import React from "react";
+
 import "./styles.css";
+
+const skillsData = [
+  {
+    name: "HTML+CSS",
+    level: "advanced",
+    colour: "#e5c494",
+  },
+  {
+    name: "JavaScript",
+    level: "advanced",
+    colour: "#66c2a5",
+  },
+  {
+    name: "Web Development",
+    level: "advanced",
+    colour: "#fc8d62",
+  },
+  {
+    name: "Git & GitHub",
+    level: "intermediate",
+    colour: "#8da0cb",
+  },
+  {
+    name: "React",
+    level: "beginer",
+    colour: "#e78ac3",
+  },
+  {
+    name: "SQL",
+    level: "advanced",
+    colour: "#a6d854",
+  },
+  {
+    name: "MongoDB",
+    level: "beginer",
+    colour: "#ffd92f",
+  },
+];
 
 function App() {
   return (
     <div className="card">
-      <Avatar imageAvatar="public\avatar.jpg" />
+      <Avatar imageAvatar="avatar.jpg" />
       <div className="data">
         <Intro
           name="Elena Cristescu"
@@ -14,7 +54,7 @@ function App() {
         {/* Should contain one Skill component
         for each web dev skill that you have,
         customized with props */}
-        <SkillList />
+        <SkillList skillsData={skillsData} />
       </div>
     </div>
   );
@@ -22,7 +62,7 @@ function App() {
 function Avatar(props) {
   return (
     <div className="avatar">
-      <img src={props.imageAvatar} alt="avatar" />
+      <img className="avatarImg" src={props.imageAvatar} alt="avatar" />
     </div>
   );
 }
@@ -36,22 +76,33 @@ function Intro(props) {
   );
 }
 
-function SkillList() {
+function SkillList({ skillsData }) {
   return (
-    <div className="skill-list">
-      <Skill skill="HTML+CSS" />
-      <Skill skill="JavaScript" />
-      <Skill skill="Web Development" />
-      <Skill skill="Git & GitHub" />
-      <Skill skill="React" />
-      <Skill skill="SQL" />
-      <Skill skill="MongoDB" />
-    </div>
+    <ul className="skill-list">
+      {skillsData.map((skill) => (
+        <Skill skillObj={skill} key={skill.name} />
+      ))}
+    </ul>
   );
 }
 
-function Skill(props) {
-  return <div className="skill">{props.skill}</div>;
+function Skill({ skillObj }) {
+  const skillType = function () {
+    switch (skillObj.level) {
+      case "beginer":
+        return "🐣";
+      case "intermediate":
+        return "🐥";
+      default:
+        return "🐤";
+    }
+  };
+  return (
+    <div style={{ backgroundColor: `${skillObj.colour}` }} className="skill">
+      {skillObj.name}
+      {skillType()}
+    </div>
+  );
 }
 
 const rootElement = document.getElementById("root");

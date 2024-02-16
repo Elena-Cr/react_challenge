@@ -51,5 +51,8 @@ h1 {
   align-items: center;
   gap: 8px;
   font-weight: 500;
-  background-color: aquamarine;
+}
+
+.avatarImg {
+  width: 100%;
 }
